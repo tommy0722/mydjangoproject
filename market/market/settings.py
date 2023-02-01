@@ -73,13 +73,30 @@ WSGI_APPLICATION = 'market.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
+import os
+import pymysql
+pymysql.install_as_MySQLdb()
+# if os.getenv('GAE_APPLICATION', None):
+#     DATABASES = {
+#         'default': {
+#             'NAME': 'mydjango',
+#             'ENGINE': 'django.db.backends.mysql',
+#             'HOST':'/cloudsql/mydjango-375914:asia-east1:mydjango',
+#             'USER': 'root',
+#             'PASSWORD': '',
+#         }
+#     }
+# else:
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'market',
+            'USER':'root',
+            'PASSWORD':'',
+            'HOST':'127.0.0.1',
+            'POST':'3306',  
+        }
     }
-}
 
 
 # Password validation
