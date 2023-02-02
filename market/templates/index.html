@@ -19,7 +19,7 @@
     <div class="carousel-inner">
         {% for product in productlist%}
       <div class="carousel-item {% if product.pimage == '1.jpg' %} active {% endif %}">
-        <img src="/static/images/products/{{ product.pimage}}" class="d-block w-100" alt="...">
+        <a href="/detail/{{product.id}}/"><img src="/static/images/products/{{ product.pimage}}" class="d-block w-100" alt="..."></a>
         <div class="carousel-caption d-none d-md-block">
           <h5>{{product.pname}}</h5>
           <p>{{product.pdescription}}</p>
@@ -46,7 +46,7 @@
               <h5 class="card-title fw-bold">{{product.pname}}</h5>
               <p class="card-text text-start">{{product.pdescription}}</p>
               <p><span class="badge rounded-pill text-bg-danger">特價</span>{{product.pprice}}</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
+              <a href="/detail/{{product.id}}/" class="btn btn-primary">商品資訊</a>
             </div>
           </div>
       </div>
