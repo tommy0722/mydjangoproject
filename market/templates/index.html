@@ -5,8 +5,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        table,tr,td{
+            border: solid 1px black;
+        }
+    </style>
 </head>
 <body>
     <h1>歡迎光臨</h1>
+    <table>
+        <tr>
+            <td>商品名稱</td>
+            <td>商品價格</td>
+            <td>圖片名稱</td>
+            <td>商品描述</td>
+        </tr>
+        {% for product in products %}
+        <tr>
+            <td>{{product.pname}}</td>
+            <td>{{product.pprice}}</td>
+            <td>{{product.pimage}}</td>
+            <td>{{product.pdescription}}</td>
+        </tr>
+        {% endfor%}
+    </table>
 </body>
 </html>
