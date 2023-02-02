@@ -36,6 +36,24 @@
       <span class="visually-hidden">Next</span>
     </button>
   </div>
+  <div class="container-fluid text-center">
+    <div class="row">
+      {% for product in products %}
+      <div class="col">
+        <div class="card my-3 mx-auto" style="width: 18rem;">
+            <img src="/static/images/products/{{product.pimage}}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title fw-bold">{{product.pname}}</h5>
+              <p class="card-text text-start">{{product.pdescription}}</p>
+              <p><span class="badge rounded-pill text-bg-danger">特價</span>{{product.pprice}}</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+      </div>
+      {%endfor%}
+    </div>
+  </div>
+
   <div class="container text-center">
     <div class="row">
       <div class="col my-5">
