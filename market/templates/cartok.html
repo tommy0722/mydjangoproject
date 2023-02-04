@@ -1,0 +1,25 @@
+{%extends 'base.html'%}
+{%load static%}
+{% block title %}
+<title>訂單已完成</title>
+<style>
+    /* .cartok{
+        background-image: ;
+    } */
+</style>
+{% endblock %}
+{% block content %}
+<div class="cartok mb-10">
+    <div class="container">
+        <div class="row d-flex align-items-center">
+            <div class="col-12 col-md-6">
+                <img src="/static/images/img/train.png" width="80%"  alt="">
+            </div>
+            <div class="col-12 col-md-6 pb-3">
+                <h2>訂購成功</h2>
+                <h3>親愛的{{customername}}，你的訂單已完成，目前正在火速處理，請耐心等候</h3>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -112,4 +112,4 @@ def cartok(request):
             unitDetail=DetailModel.objects.create(pname=unit[0],unitprice=int(unit[1]),quantity=int(unit[2]),dtotal=dtotal,dorder=productOrder)
             unitDetail.save()
         cartlist=[]
-    return HttpResponse("test")
+    return render(request,'cartok.html',locals())
