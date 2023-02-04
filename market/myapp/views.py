@@ -40,8 +40,21 @@ def addtocart(request,type=None,id=None):
         request.session['cartlist']=cartlist
         print(request.session['cartlist'])
         return redirect('/cart/')
-    #update
     #empty
+    elif type=='empty':
+        cartlist=[]
+        request.session['cartlist']=cartlist
+        return redirect('/cart/')
+    #update
+    elif type=='update':
+        if request.method=='POST':
+            n=1
+            for unit in cartlist:
+                unit[2]=request.POST.get('quantity'+str(n),'1')
+                unit[3]=str(int(unit[1])*int(unit[2]))
+                n=n+1
+                request.session['cartlist']=cartlist
+            return redirect('/cart/')
     #remove
 def cart(request):
     global cartlist
