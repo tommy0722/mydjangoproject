@@ -56,6 +56,11 @@ def addtocart(request,type=None,id=None):
                 request.session['cartlist']=cartlist
             return redirect('/cart/')
     #remove
+    elif type=='remove':
+        del cartlist[int(id)] #這個ID是cartlist的索引值
+        request.session['cartlist']=cartlist
+        return redirect('/cart/')
+
 def cart(request):
     global cartlist
     global shipping
@@ -67,3 +72,14 @@ def cart(request):
         total=total+int(unit[3])
     grandtotal=total+localshipping #總價(加上運費價格)
     return render(request,'cart.html',locals())
+
+def cartorder(request):
+    global cartlist
+    global shipping
+    localcartlist=cartlist
+    localshipping=shipping
+    total=0 #小計
+    for unit in localcartlist:
+        total=total+int(unit[3])
+    grandtotal=total+localshipping
+    return render(request,'cartorder.html',locals())
