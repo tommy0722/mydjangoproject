@@ -24,5 +24,6 @@ urlpatterns = [
     path('addtocart/<str:type>/', views.addtocart),
     path('cart/',views.cart),
     path('cartorder/',views.cartorder),
+    path('cartok/',views.cartok),
     
 ]

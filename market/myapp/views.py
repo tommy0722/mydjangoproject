@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from myapp.models import ProductModel
+from myapp.models import ProductModel,OrderModel,DetailModel
 # Create your views here.
 cartlist=[]
 shipping=100 #運費
@@ -83,3 +83,33 @@ def cartorder(request):
         total=total+int(unit[3])
     grandtotal=total+localshipping
     return render(request,'cartorder.html',locals())
+def cartok(request):
+    global cartlist
+    global shipping
+    if request.method=='POST':
+        customername=request.POST['customername']
+        customerphone=request.POST['customerphone']
+        customeremail=request.POST['customeremail']
+        customeraddress=request.POST['customeraddress']
+        paytype=request.POST['paytype']
+        #print(customername+customerphone+customeremail+customeraddress+paytype)
+        total=0 #小計
+        for unit in cartlist:
+            total=total+int(unit[3])
+        grandtotal=total+shipping #總價(加上運費價格)
+
+        #---將訂購資訊寫進OrderModel表單---
+        productOrder=OrderModel.objects.create(customername=customername,
+        customerphone=customerphone,customeremail=customeremail,customeraddress
+        =customeraddress,paytype=paytype,grandtotal=grandtotal,shipping=shipping,
+        subtotal=total)
+        productOrder.save()
+        #---將該筆訂單，寫進DetailModel表單---
+        #---訂單不會只有一筆，用for一筆一筆放入---
+        dtotal=0
+        for unit in cartlist:
+            dtotal=int(unit[1])*int(unit[2])
+            unitDetail=DetailModel.objects.create(pname=unit[0],unitprice=int(unit[1]),quantity=int(unit[2]),dtotal=dtotal,dorder=productOrder)
+            unitDetail.save()
+        cartlist=[]
+    return HttpResponse("test")
