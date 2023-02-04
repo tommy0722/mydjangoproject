@@ -2,7 +2,8 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from myapp.models import ProductModel
 # Create your views here.
-carlist=[]
+cartlist=[]
+shipping=100 #運費
 def index(request):
     products=ProductModel.objects.all()
     productlist=[]
@@ -16,7 +17,7 @@ def detail(request,id=None):
     return render(request,'detail.html',locals())
 
 def addtocart(request,type=None,id=None):
-    global carlist
+    global cartlist
     #add
     if type=='add':
         product=ProductModel.objects.get(id=id)
@@ -24,7 +25,7 @@ def addtocart(request,type=None,id=None):
         #如果有舊更新session裡面的商品數量、金額
         #沒有就把商品放到session
         noCartSession=True
-        for unit in carlist:
+        for unit in cartlist:
             if product.pname ==unit[0]:
                 unit[2]=str(int(unit[2])+1)
                 unit[3]=str(int(unit[3])+product.pprice*1)
@@ -35,12 +36,21 @@ def addtocart(request,type=None,id=None):
             templist.append(str(product.pprice))
             templist.append(str(1))
             templist.append(str(product.pprice*1))
-            carlist.append(templist)
-        request.session['cartlist']=carlist
+            cartlist.append(templist)
+        request.session['cartlist']=cartlist
         print(request.session['cartlist'])
         return redirect('/cart/')
     #update
     #empty
     #remove
 def cart(request):
-    return HttpResponse('這裡是購物車')
+    global cartlist
+    global shipping
+    #locals是將裡面的區域變數傳到網頁，所以要將全域轉區域
+    localcartlist=cartlist
+    localshipping=shipping
+    total=0 #小計
+    for unit in localcartlist:
+        total=total+int(unit[3])
+    grandtotal=total+localshipping #總價(加上運費價格)
+    return render(request,'cart.html',locals())
