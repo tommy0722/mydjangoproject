@@ -76,18 +76,18 @@ WSGI_APPLICATION = 'market.wsgi.application'
 import os
 import pymysql
 pymysql.install_as_MySQLdb()
-# if os.getenv('GAE_APPLICATION', None):
-#     DATABASES = {
-#         'default': {
-#             'NAME': 'mydjango',
-#             'ENGINE': 'django.db.backends.mysql',
-#             'HOST':'/cloudsql/mydjango-375914:asia-east1:mydjango',
-#             'USER': 'root',
-#             'PASSWORD': '',
-#         }
-#     }
-# else:
-DATABASES = {
+if os.getenv('GAE_APPLICATION', None):
+    DATABASES = {
+        'default': {
+            'NAME': 'market',
+            'ENGINE': 'django.db.backends.mysql',
+            'HOST':'/cloudsql/mydjango-375914:asia-east1:mydjango',
+            'USER': 'root',
+            'PASSWORD': '',
+        }
+    }
+else:
+    DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
             'NAME': 'market',
